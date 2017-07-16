@@ -41,6 +41,7 @@ After successfull order the user receives an email of successfull order and a me
 * [Primefaces](https://www.primefaces.org/)
 
 ## What's Next
+* Adding customized suggestions
 * Improving the GUI
 * Adding More functionalities
 
