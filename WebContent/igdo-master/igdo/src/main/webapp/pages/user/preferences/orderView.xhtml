@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:hftl="http://hftl.org"
+	xmlns:hf="http://xmlns.jcp.org/jsf/composite/tags"
+	xmlns:igdo="www.igdo.lt/igdo"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/templates/main.xhtml">
+    
+    	<ui:define name="css">
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/layout.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/main.css" />
+        </ui:define>
+		
+		<ui:define name="header">
+		    <ui:include src="/WEB-INF/templates/header.xhtml">
+		    	<ui:param name="tab" value="tab:preferences" />
+		    </ui:include>
+		</ui:define>
+
+        <ui:define name="content">
+            
+			<igdo:searchBar />
+            <h:outputText value="#{messages['order.item.name']}" />
+			<h:outputText value="#{messages['order.item.price']} #{messages['currency']}"/>
+			<h:outputText value="#{messages['order.item.quantity']}" />
+			<ui:repeat value="#{orderAction.orderToShow.orderedItems}" var="orderItem" id="orders">
+				<h:outputText value="#{orderItem.item.name}"/>
+				<h:outputText value="#{orderItem.item.price}"/>
+				<h:outputText value="#{orderItem.quantity}" />
+				<h:commandButton value="#{messages['back']}" action="/pages/user/preferences/orderView.xhtml" /> 
+			</ui:repeat>
+			<div class="break" ></div>
+			<h:outputText value="#{messages['order.totalPrice']} #{orderAction.orderToShow.orderPrice} #{messages['currency']}"/>
+        </ui:define>
+</ui:composition>

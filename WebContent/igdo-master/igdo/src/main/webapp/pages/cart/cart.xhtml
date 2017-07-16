@@ -1,0 +1,112 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:hftl="http://hftl.org"
+	xmlns:hf="http://xmlns.jcp.org/jsf/composite/tags"
+	xmlns:igdo="www.igdo.lt/igdo"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/templates/main.xhtml">
+		
+		<ui:define name="css">
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/layout.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/main.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/cart.css" />
+        </ui:define>
+        
+        <ui:define name="js">
+            <script type="text/javascript"
+				src="#{facesContext.externalContext.requestContextPath}/js/events.js"></script>
+			<script type="text/javascript"
+				src="#{facesContext.externalContext.requestContextPath}/js/rounded-corners.js"></script>
+		</ui:define>
+		
+		<ui:define name="header">
+		    <ui:include src="/WEB-INF/templates/header.xhtml">
+		    	<ui:param name="tab" value="tab:cart" />
+		    </ui:include>
+		</ui:define>
+		
+		<ui:define name="content">
+		
+			<igdo:searchBar />
+			
+			<!-- Centrine informacija -->
+		    <div id="final_cart">
+	          <div id="cartmenu">
+	            <div class="left">
+	              <div class="right">
+	                <div class="right_item col3">#{messages['cart.remove']}</div>  
+	                <div class="right_item">#{messages['cart.table.quantity']}</div> 
+	                <div class="right_item">#{messages['cart.table.price']}</div> 
+	                <div class="left_item">#{messages['cart.table.cart']}</div>            
+	              </div>
+	            </div>
+	          </div>
+	          <div class="break"></div>
+	          <div class="cart_items">
+	            <h:form>
+		            <ui:repeat value="#{cartBean.getCartItems()}" var="cartItem" id="cartItems">
+		            	<div class="rounded">
+		            	<div class="border_inner">
+							<div class="right_item">
+								<h:commandLink value="${messages['cart.remove']}"
+									action="#{cartBean.removeCartItem(cartItem)}" />
+							</div>
+							<div class="right_item">
+								<h:inputText value="#{cartItem.quantity}" />
+							</div>
+							<div class="right_item price">
+								<a href="#">#{cartItem.item.price} #{messages['currency']}</a>
+							</div>
+							<div class="title">
+								<igdo:itemDetailLink itemId="#{cartItem.item.id}" value="#{cartItem.item.name}" />
+							</div>
+							<div class="date">
+              					<igdo:date date="#{cartItem.addedOn}" />
+              				</div>
+						</div>
+						</div>
+						<div class="break"></div>
+					</ui:repeat>
+				</h:form>
+	            <div class="break brcheck"></div>
+	          </div>
+	          
+	          <div id="checkout">
+	            <div class="left">
+	              <div class="right">
+	                <div class="right_item col3">#{messages['cart.removeAll']}</div>
+	                <div class="right_item">#{messages['cart.table.quantity']}</div>
+	                <div class="right_item">#{messages['cart.table.price']}</div>
+	                <div class="left_item">#{messages['cart.table.checkout']}</div>
+	              </div>
+	            </div>
+	          </div>
+	          <div class="break"></div>
+	          
+	          <div class="cart_items">
+	          	<h:form>
+	            <div class="rounded">
+	            	<div class="border_inner">
+	              		<div class="right_item">
+	              			<h:commandLink value="#{messages['cart.removeAll']}" action="#{cartBean.removeAllCartItems()}" />
+	              		</div>
+	              	<div class="right_item">
+	              		<input type="text" disabled="disabled" value="#{cartBean.getTotalQuantity()}" />
+	              	</div> 
+	              	<div class="right_item price">
+	              		<a href="#">#{cartBean.getTotalPrice()} #{messages['currency']}</a>
+	              	</div>
+	              	<div class="checkout_button">
+	              		<h:commandButton image="/img/checkout_bt.png" action="#{cartBean.checkout()}" /> 
+	              	</div>
+	              </div>
+	          	</div>
+	          	</h:form>
+	          </div>
+	        </div>
+    
+		</ui:define>
+</ui:composition>

@@ -1,0 +1,62 @@
+/* produktu dezes */
+div#search {
+  padding:0 14px;
+}
+div#search div.main_box {
+  background:url(../img/main_box_top_middle.png) top left repeat-x;
+  width:auto;
+  margin:0 0 14px 0;
+  position:relative;
+  float:none;
+  display:block;
+  text-align:justify;
+  width:100%;    /* uzdeta kad pataisyt ie6 buga: jei plotis auto viduj neveikia absoliutus pozicionavimas */
+}
+div#search div.main_box img.product {
+  height:100px;
+  width:100px;
+  border: 1px solid #d0d4d4;
+  margin:3px 10px 5px 4px;
+}
+div#search div.main_box div.content div.title {
+  margin:-2px 0 7px 0;
+  font-size:11px;
+  font-weight:bold;
+}
+div#search div.main_box div.content div.price {
+  text-align:left;
+}
+div#search div.main_box div.content div.price a {
+  display:inline;
+  text-decoration:none;
+  line-height:16px;
+}
+div#search div.main_box div.content span.number {
+  color:#e67d00;
+  text-decoration: underline;
+  font-weight:bold;
+}
+div#search div.main_box div.text {
+  margin-left:3px;
+}
+div.metter span {
+  font-size:10px;
+}
+div.metter {
+  margin:7px 0 7px 0;
+  font-size:8px;
+  line-height:10px;
+  clear:right;
+}
+div.metter div.outer {
+  background:url(../img/metter_blue.png);
+  float:left;
+  font-size:8px;
+  height:10px;
+  margin-right: 10px;
+}
+div.metter div.inner {
+  height:10px;
+  font-size:8px;
+  background:url(../img/metter_yellow.png);
+}

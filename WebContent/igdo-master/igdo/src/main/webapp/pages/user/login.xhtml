@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:hftl="http://hftl.org"
+	xmlns:hf="http://xmlns.jcp.org/jsf/composite/tags"
+	xmlns:igdo="www.igdo.lt/igdo"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/templates/main.xhtml">
+	
+        <ui:define name="css">
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/layout.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/main.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/form.css" />
+        </ui:define>
+        <ui:define name="js">
+            <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/events.js"></script>
+            <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/rounded_corners_lite.inc.js"></script>
+        </ui:define>
+        <ui:define name="content">
+            
+            <igdo:searchBar />
+            
+			<igdo:formHeader>
+				<div class="right_item">
+			    	#{messages['user.login.notRegistered']}&#160;
+			    	<h:link outcome="/pages/user/register.xhtml" value="${messages['user.login.register']}" />
+				</div>
+			    <div class="left_item">
+			    	#{messages['user.login.title']}
+				</div>
+			</igdo:formHeader>
+
+            <h:form id="igdoform" rendered="#{not identity.loggedIn}">
+                <div class="row">
+                	<label for="igdoform:email"> 
+	                	<h:outputText value="${messages['user.login.email']}" /> 
+	                	<igdo:requiredFieldImage />
+                	</label> 
+                	<h:inputText value="#{credentials.username}" id="email" required="true"/>
+                </div>
+                <div class="row">
+                	<label for="igdoform:password"> 
+                		<h:outputText value="${messages['user.login.password']}" /> 
+                		<igdo:requiredFieldImage />
+                	</label> 
+                	<h:inputSecret value="#{credentials.password}" id="password" required="true"/>
+                </div>
+                <div class="row">
+                	<label for="igdoform:rememberMe"> 
+                		<h:outputText value="${messages['user.login.rememberMe']}" /> 
+                	</label> 
+                	<h:selectBooleanCheckbox id="rememberMe" value="#{rememberMe.enabled}" />
+                </div>
+                <div class="buttons">
+					<igdo:buttonDecorator>
+						<h:commandButton styleClass="btn" type="submit" value="#{messages['user.login.login']}" action="#{identity.login}" />
+					</igdo:buttonDecorator>
+                </div>
+            </h:form>
+        </ui:define>
+</ui:composition>

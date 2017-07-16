@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.1"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+         
+      <display-name>Igdo</display-name>
+      
+      <!-- Log4J configuration -->
+	    <context-param>  
+	         <param-name>log4jConfigLocation</param-name>
+			 <param-value>/WEB-INF/log4j.xml</param-value>  
+	    </context-param>  
+	    <listener>  
+		      <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
+	    </listener>
+ 		
+      <!-- Spring Context Configuration' s Path definition -->
+      <context-param>
+         <param-name>contextConfigLocation</param-name>
+         <param-value>
+            /WEB-INF/applicationContext*.xml
+         </param-value>
+      </context-param>
+      
+      <session-config>
+	    <session-timeout>15</session-timeout>
+	</session-config>
+ 
+      <!-- The Bootstrap listener to start up and shut down Spring's root WebApplicationContext. It is registered to Servlet Container -->
+      <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+      </listener>
+      <listener>
+        <listener-class>
+            org.springframework.web.context.request.RequestContextListener
+        </listener-class>
+      </listener>
+      
+      <!-- Project Stage Level -->
+      <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+      </context-param>
+ 
+      <!-- JSF Servlet is defined to container -->
+      <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+      </servlet>
+ 
+      <!-- Mapping with servlet and url for the http requests. -->
+      <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.m</url-pattern>
+      </servlet-mapping>
+      
+       <!-- Welcome Page -->
+      <welcome-file-list>
+        <welcome-file>/index.m</welcome-file>
+      </welcome-file-list>
+      
+      <!-- Facelets taglib -->
+		<context-param>
+			<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+			<param-value>
+				/WEB-INF/facelets/tags/igdo.taglib.xml
+			</param-value>
+		</context-param>
+	
+	<!-- Images servlets. Should be in separate module as then other servers could provide images and its more scalable. For simplicity its here now. -->
+	<servlet>
+        <servlet-name>Images Servlet</servlet-name>
+        <servlet-class>lt.igdo.servlets.images.ImageServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Images Servlet</servlet-name>
+        <url-pattern>/image</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Image Upload Servlet</servlet-name>
+        <servlet-class>lt.igdo.servlets.images.UploadServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Image Upload Servlet</servlet-name>
+        <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+	
+	     
+	  <!-- Bean validation -->
+	  <context-param>
+		    <param-name>
+		        javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL
+		    </param-name>
+		    <param-value>true</param-value>
+	  </context-param>
+	  
+	  <!-- Skip comment in jsf pages -->
+	  <context-param>
+		    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+		    <param-value>true</param-value>
+		</context-param>
+		
+		<!-- Standard JSF date converters use system time zone - not default -->
+		<context-param>
+		    <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+		    <param-value>true</param-value>
+		</context-param>
+	  
+</web-app>

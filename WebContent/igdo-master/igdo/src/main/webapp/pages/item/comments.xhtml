@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:hftl="http://hftl.org"
+	xmlns:hf="http://xmlns.jcp.org/jsf/composite/tags"
+	xmlns:igdo="www.igdo.lt/igdo" 
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/templates/main.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="itemId" value="#{commentAction.itemId}" />
+			<f:viewParam name="page" value="#{commentAction.page}" />
+			<f:viewAction action="#{commentAction.init}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="css">
+		<link rel="stylesheet" type="text/css"
+			href="#{facesContext.externalContext.requestContextPath}/css/layout.css" />
+		<link rel="stylesheet" type="text/css"
+			href="#{facesContext.externalContext.requestContextPath}/css/main.css" />
+		<link rel="stylesheet" type="text/css"
+			href="#{facesContext.externalContext.requestContextPath}/css/details.css" />
+	</ui:define>
+
+	<ui:define name="js">
+		<script type="text/javascript"
+			src="#{facesContext.externalContext.requestContextPath}/js/events.js"></script>
+		<script type="text/javascript"
+			src="#{facesContext.externalContext.requestContextPath}/js/rounded-corners.js"></script>
+	</ui:define>
+
+	<ui:define name="header">
+		<ui:include src="/WEB-INF/templates/header.xhtml">
+			<ui:param name="tab" value="tab:main" />
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="content">
+
+		<igdo:searchBar />
+
+		<h:form id="comments_form">
+			<igdo:tabs>
+				<ui:include src="/pages/item/subtabs.xhtml">
+					<ui:param name="itemId" value="#{commentAction.itemId}" />
+					<ui:param name="tab" value="comments_form:allComments" />
+				</ui:include>
+			</igdo:tabs>
+
+			<igdo:border>
+
+				<ui:repeat value="#{commentAction.comments}" var="comment">
+					<igdo:innerBorder>
+						<div class="title">
+							<h:outputText value="#{comment.item.name}" />
+							<span><igdo:date date="#{comment.commentedOn}" /></span>
+						</div>
+						<div class="author">
+							<h:outputText value="#{comment.user.userName}" />
+						</div>
+						<igdo:valueMetter />
+						<div class="caption">
+							<h:outputText value="#{comment.caption}" />
+						</div>
+						<div class="text">
+							<h:outputText value="#{comment.comment}" />
+						</div>
+						<div class="wasValuable">
+							<h:outputText value="${messages['details.comment.wasValuable']}" />
+							<h:commandButton value="#{messages['yes']}"
+								action="#{commentAction.wasCommentValuable(true)}" />
+							<h:commandButton value="#{messages['no']}"
+								action="#{commentAction.wasCommentValuable(false)}" />
+						</div>
+					</igdo:innerBorder>
+					<div class="break"></div>
+				</ui:repeat>
+				<igdo:pager pager="#{commentAction.commentsPager}" view="/pages/item/comments.xhtml">
+					<f:param name="itemId" value="#{itemId}" />
+				</igdo:pager>
+			</igdo:border>
+		</h:form>
+	</ui:define>
+</ui:composition>

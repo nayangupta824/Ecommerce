@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+	<link rel="stylesheet" type="text/css" href="resources/css/items.css"/>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+	<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet"/>
+	<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet"/>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	
+	<script type="text/javascript"
+  	src="resources/js/items.js">
+</script>
+  <title><ui:insert name="title">MyECommerce - Welcome</ui:insert></title>
+  <f:metadata>
+  
+  	<f:event listener="#{AccountController.verifyLoginOnWelcomedummy()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.checkloginstatus()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.loadgallery()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.loadcart()}" type="preRenderView"></f:event>
+  </f:metadata>
+ <script type = "text/javascript" >
+  //for back button not to work
+   function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+ 
+</script>
+
+</head>
+<h:body onload = "welcome('#{AccountController.account.username}')">
+
+<ul class="topnav">
+  <li><h:form><h:commandLink value="Home" action = "#{AccountController.loadeverything()}" styleClass="active"></h:commandLink></h:form></li>
+  <li><h:form><h:commandLink value="T-shirts" action = "#{AccountController.loadtshirts()}"></h:commandLink></h:form></li>
+  <li><h:form><h:commandLink value="shoes" action = "#{AccountController.loadshoes()}"></h:commandLink></h:form></li>
+  <li class="right" style="#{AccountController.loggedin ? '' : 'display:none'}"><h:form><h:commandLink action="orders?faces-redirect=true" value = "orders" onclick="openorders()"/></h:form></li>
+  <li class="right" id="username" style="#{AccountController.loggedin ? '' : 'display:none'}"><h:form><h:commandLink action="profile.xhtml" value = "#{AccountController.account.username}"/></h:form></li>
+  <li class="right" style="#{AccountController.loggedin ? '' : 'display:none'}"><h:form><h:commandLink action="#{AccountController.logout()}" value = "Logout" onclick = "logout('#{AccountController.account.username}')"/></h:form></li>
+  <li class="right" style="#{AccountController.loggedin ? 'display:none' : ''}"><h:form><h:commandLink action="index.xhtml?faces-redirect=true" value = "Login/Signup" onclick="login()"/></h:form></li>
+  <li class = "right" style="#{AccountController.loggedin ? '' : 'display:none'}"><h:form><h:commandLink action="cart?faces-redirect=true" onclick="opencart()"><span class="fontawesome-shopping-cart"></span><h:outputText value = "#{AccountController.cartquantity}"></h:outputText></h:commandLink></h:form></li>
+  
+</ul>
+
+
+
+<br/>
+
+<div class="dropdown" style="float:right;margin-right:10vw">
+  <button class="dropbtn">Sort By</button>
+  <div class="dropdown-content" style="left:0;">
+  <h:form>
+  	<h:commandLink value = "Default" action="#{AccountController.sort('rand')}"></h:commandLink>
+  	<h:commandLink value = "Price Low-High" action="#{AccountController.sort('asc')}"></h:commandLink>
+  	<h:commandLink value = "Price High-Low" action="#{AccountController.sort('desc')}"></h:commandLink>
+  </h:form>
+  </div>
+</div>
+<center>
+
+
+<h:form>
+    	   <h:inputText id="search_input" value="#{AccountController.search_input}" a:placeholder="Search.."/>
+    	   <h:commandButton value="SEARCH" action = "#{AccountController.loadgalleryn()}" style="display:none"></h:commandButton>
+ </h:form>
+
+ <h:messages style="color:red;margin:8px;" global="true"/> 
+ </center>
+
+<div id = "output">
+<ui:repeat var="items" value="#{AccountController.items}" varStatus="status">
+	<div class="responsive" id = "#{AccountController.items[status.index][0]}">
+  		<div class="gallery">
+    		<a target="_blank" href="#{AccountController.items[status.index][4]}" style="float:center;">
+      			<img src="#{AccountController.items[status.index][4]}" style="height:200px;width:135px;float:center;margin-left:10%; margin-top:10%;overflow: hidden"/>
+   			</a>
+    		<div class="desc" id="#{'desc-'.concat(AccountController.items[status.index][0])}" style= "font-family: 'Cinzel', serif; width: auto;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;" >#{AccountController.items[status.index][1]}</div>
+   			<div>
+   			<br/>
+   			<div style="background-color:#CCCCCC;padding-top:20px">
+   		  <button class= "button" style = "display:inline;font-family: 'Days One', sans-serif;" id="#{'myBtn-'.concat(AccountController.items[status.index][0])}" onclick="updatecart(this)">
+	    			<span class="fontawesome-shopping-cart"></span>Add to Cart
+			</button>
+			
+		<h4 style="float:right;color:red;margin:10px;" class="price">₹#{AccountController.items[status.index][5]}</h4>
+    		
+	    		
+			    
+			
+			
+			<br/>
+			<br/>
+			<br/>
+			</div>
+    		</div>
+         </div>
+	</div>
+	
+</ui:repeat>
+
+</div>
+
+<div class="clearfix"></div>
+
+<div id="snackbar"></div>
+
+ <div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top w3-card-4">
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h2 id="here"></h2>
+        
+        
+      </header>
+      <div class="w3-container">
+      
+      <div class="gallerycontainer">
+
+<a class="thumbnail" href="#thumb"><img src="https://www.lamnia.com/images/sg-150-Shirts_and_T-Shirts.jpg" width="100px" height="66px" border="0" /><span><img src="https://www.lamnia.com/images/sg-150-Shirts_and_T-Shirts.jpg" /><br /></span></a>
+
+<a class="thumbnail" href="#thumb"><img src="https://www.lamnia.com/images/sg-150-Shirts_and_T-Shirts.jpg" width="100px" height="66px" border="0" /><span><img src="https://www.lamnia.com/images/sg-150-Shirts_and_T-Shirts.jpg" /><br /></span></a>
+
+<br />
+
+<a class="thumbnail" href="#thumb"><img src="https://www.lamnia.com/images/sg-150-Shirts_and_T-Shirts.jpg" width="100px" height="66px" border="0" /><span><img src="https://www.lamnia.com/images/sg-150-Shirts_and_T-Shirts.jpg" /><br /></span></a> 
+
+<a class="thumbnail" href="#thumb"><img src="https://www.lamnia.com/images/sg-150-Shirts_and_T-Shirts.jpg" width="100px" height="66px" border="0" /><span><img src="https://www.lamnia.com/images/sg-150-Shirts_and_T-Shirts.jpg" /><br /></span></a>
+
+<br />
+
+
+<h3>Please select quantity : </h3>
+</div>
+      
+      <h:form>
+        <h:inputHidden id="here1" value="#{AccountController.name}" />
+        <h:inputHidden id="status" value="#{AccountController.errorcode}" />
+        <h:selectOneMenu styleClass = "selected" value = "#{AccountController.quantity}" required = "true" requiredMessage="Please select quantity"> 
+   			<f:selectItem itemValue = "1" itemLabel = "1" /> 
+   			<f:selectItem itemValue = "2" itemLabel = "2" /> 
+   			<f:selectItem itemValue = "3" itemLabel = "3" /> 
+		</h:selectOneMenu> 
+        <h:commandButton value = "OK" action = "#{AccountController.updatecart()}" style="float:right;background-color:#4CAF50;"></h:commandButton>
+      </h:form>
+      </div>
+     
+     
+    </div>
+  </div>
+<button onclick="topFunction();return false;" id="myBtn" title="Go to top">Go to Top</button>
+<br/>
+<div class="heading">
+  <h6 class="title-text" style = "font-family: 'Days One', sans-serif;"><span>© 2017 Nayan Gupta</span></h6>
+  <div class="hline"></div>
+</div>
+
+</h:body>
+
+</html>

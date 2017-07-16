@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+	<link rel="stylesheet" type="text/css" href="resources/css/login.css"/>
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"/>
+	<link href="https://fonts.googleapis.com/css?family=Merriweather+Sans" rel="stylesheet"/>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  <title><ui:insert name="title">MyeCommerce - Login</ui:insert></title>
+  
+  <f:metadata>
+  	<f:event listener="#{AccountController.verifyLogin()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.clearerrors()}" type="preRenderView"></f:event>
+  </f:metadata>
+  <script type = "text/javascript" >
+  //for back button not to work
+   function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+ 
+</script>
+	
+</head>
+
+<body>
+<center>
+	
+<h1 style="font-family: 'Merriweather Sans', sans-serif;color:#d61721;">MyEcommerce </h1>
+</center>
+<f:facet name="first">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    </f:facet>
+<div id="login">
+	<h:form>
+		<table style="width:100%">
+			<tr><td colspan="2">
+				<span class="fontawesome-user"></span>
+				<h:inputText value = "#{AccountController.account.username}" id = "user" a:placeholder="Username" required="true" requiredMessage="Username is required" validatorMessage="Only Aplhanumeric Characters and [points,dashes,underscores] with total length >= 3 are allowed for username"><f:validateRegex pattern="^[a-zA-Z0-9._-]{3,}$" /></h:inputText>
+			</td></tr>
+			<tr><td colspan="2">
+				<span class="fontawesome-envelope"></span>
+				<h:inputText value = "#{AccountController.email}" id="email" a:placeholder="E-mail" required="true" requiredMessage="E-mail is required" validatorMessage="E-mail is not valid"><f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" /></h:inputText>
+			</td></tr>
+			<tr><td colspan="2">
+				<span class="fontawesome-lock"></span>
+				<h:inputSecret value = "#{AccountController.account.password}" id="pass" a:placeholder="Password" required="true" requiredMessage="Password is required"/>
+			</td></tr>
+			
+			<tr><td colspan="2">
+				<span class="fontawesome-lock"></span>
+				<h:inputSecret value = "#{AccountController.repassword}" id="pass2" a:placeholder="Re-enter Password" required="true" requiredMessage="Re-enter Password is required"/>
+			</td></tr>
+			<tr><td colspan="2">
+				<span class="fontawesome-phone"></span>
+				<h:inputText value = "#{AccountController.mobile}" id="mobile" a:placeholder="Mobile" required="true" requiredMessage="Mobile number is required" validatorMessage="Mobile number is not valid" a:maxlength="10"><f:validateRegex pattern="^[0-9]{10}$" /></h:inputText>
+			</td></tr>
+			
+		</table>
+			
+				
+			<br/><br/>
+			<h:commandButton action = "#{AccountController.signup()}" value = "SIGN UP" style="font-weight: bold;"/>
+			
+			
+		
+		<p style="color:red">
+			#{AccountController.errorMessage}
+			
+			</p>
+	</h:form>
+	<p style="text-align:center;font-size:16px;font-family:'Ubuntu', sans-serif;" >Have an Account?<h:link value = "Login" outcome = "index" /></p>
+	<h:messages style="color:red;margin:8px;" /> 
+	<h:messages globalOnly="true" style="color:green;margin:8px;"/>
+</div>
+<h:outputScript rendered="#{AccountController.success}">
+    alert('hello');
+</h:outputScript>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<td xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" id="right">
+    
+    <h:form>
+	<ui:repeat value="#{shoppingBean.advertisments}" var="adv">
+		<div class="right_column_box">
+		<div class="top">
+		<div class="left"></div>
+		</div>
+		<div class="content"><h:commandLink styleClass="title"
+			value="#{adv.name}" /> <h:commandLink>
+			<h:graphicImage value="pics/right/geox.png" styleClass="pic" />#{adv.description}
+			</h:commandLink>
+		<div class="break"></div>
+		</div>
+		<div class="bottom">
+		<div class="right">
+		<div class="left"></div>
+		</div>
+		</div>
+		</div>
+	</ui:repeat>
+</h:form></td>

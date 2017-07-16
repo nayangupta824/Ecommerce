@@ -1,0 +1,44 @@
+body {
+  width:expression(document.body.clientWidth < 800? "800px": "auto" );
+  margin:0;
+  background-color:white;
+  padding:0 14px 14px 14px;
+  font:11px verdana;
+    width:expression(
+      (d = document.compatMode == "CSS1Compat" ? document.documentElement : document.body) &&
+      (d.clientWidth > 824 ? "auto" : d.clientWidth < 824 ? "800px" : "auto"));
+  min-width:800px;
+  }
+#header {
+  margin:0; padding:0;
+  }
+.cleaner {
+  clear:both;
+  height:158;
+  font-size:1px;
+  border:none;
+  margin:0; padding:0;
+  background:transparent;
+  }
+#min_width {
+  width:470px;
+  height:1px;
+  border:1px solid #000;
+}
+table#container {
+  width:100%;
+  border-collapse:collapse;
+}
+td#left {
+  padding-top:15px;
+  vertical-align:top;
+  width:158px;
+  }
+td#right {
+  padding-top:15px;
+  vertical-align:top;
+  width:158px;
+}
+td#middle {
+  vertical-align:top;
+  }

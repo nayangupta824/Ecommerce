@@ -1,0 +1,79 @@
+div#formHeader, div#checkout {
+  line-height:55px;
+  background:url(../img/submenu_middle.png) center center repeat-x;
+  margin: -7px 14px 0 14px;
+}
+div#formHeader div.left {
+  background:url(../img/login.png) center left no-repeat;
+  color:white;
+  font-weight:bold;
+  padding-left:50px;
+  padding-right:-8px;
+}
+div#formHeader div.right, div#checkout div.right{
+  background:url(../img/submenu_right.png) center right no-repeat;
+  padding:0 12px;
+}
+div#formHeader div.right div.col3, div#checkout div.right div.col3{
+  width:72px;
+}
+div#formHeader div.right_item, div#checkout div.right_item {
+  float:right;
+  width:300px;
+  font-size:11px;
+  color:white;
+  font-weight:bold;
+  text-align:right;
+}
+div#formHeader a {
+  color:white;
+}
+form#igdoform {
+  margin-top:-16px;
+  margin-bottom:0;
+  padding:0;
+}
+form#igdoform select {
+  width:270px;
+}
+form#igdoform textarea, form#loginForm input {
+  border:1px solid #d0d4d4;
+  width:270px;
+}
+form#igdoform textarea {
+  height:80px;
+}
+
+form#igdoform label {
+  width:150px;
+  float:left;
+}
+form#igdoform div.check label.box {
+  display:inline;
+  float:none;
+  width:auto;
+}
+form#igdoform div.check input {
+  width:auto;
+  vertical-align:middle;
+  border:none;
+}
+form#igdoform div.row {
+  clear:both;
+  margin:10px 0 10px 20px;
+}
+form#igdoform div.row img {
+  margin-left:4px;
+  vertical-align:top;
+}
+form#igdoform div.buttons {
+  margin-top:14px;
+  margin-bottom:14px;
+}
+form#igdoform div.buttons img {
+  cursor:pointer;
+}
+form#igdoform div.buttons input.single {
+  margin-right:15px;
+  margin-left:150px;
+}

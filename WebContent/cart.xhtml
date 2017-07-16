@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+<link rel="stylesheet" type="text/css" href="resources/css/cart.css"/>
+
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	<script type="text/javascript" src="resources/js/items.js"/>
+  <title><ui:insert name="title">MyECommerce - Cart</ui:insert></title>
+  <f:metadata>
+  	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.loadgallery()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.loadcart()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.verifycartisnotempty()}" type="preRenderView"></f:event>
+  </f:metadata>
+
+
+</head>
+<h:body>
+
+<ul class="topnav">
+  <li><a class="active" href="#">Cart</a></li>
+  
+  <li class="right" id="username"><a href="#about">#{AccountController.account.username}</a></li>
+  <li class="right"><h:form><h:commandLink action="#{AccountController.logout()}" value = "Logout" onclick = "logout('#{AccountController.account.username}')"/></h:form></li>
+  <li class = "right"><h:form><h:commandLink action="items?faces-redirect=true" value = "Shop More" onclick="shop()"/></h:form></li>
+  
+</ul>
+<br/>
+
+<div style="align:center;">
+
+<h:dataTable value = "#{AccountController.cart}" var = "cart" styleClass="cart" cellspacing="0" cellpadding="0" border="0" rowClasses="odd,even" columnClasses="number,image,name,quantity,price,remove">
+   <h:column>    				
+      <f:facet name = "header">NO</f:facet>    				
+    	<h4>#{AccountController.cart.indexOf(cart) + 1}.</h4>
+   </h:column>
+   <h:column>    				
+      <f:facet name = "header">PHOTO</f:facet>    				
+      <img src = "#{AccountController.imgarr[cart[0]-1]}" style = "width:10vw; height:10vw;"></img>
+      <p id="#{'i'.concat((AccountController.cart.indexOf(cart) + 1).toString())}" style = " visibility: hidden;" >#{cart[0]}</p>
+   </h:column>
+   
+   <h:column>
+      <f:facet name = "header">PRODUCT</f:facet>
+     <h4 id="#{'c'.concat((AccountController.cart.indexOf(cart) + 1).toString())}">#{AccountController.itemnamearr[cart[0]-1]}</h4>
+   </h:column>
+   
+   <h:column>
+      <f:facet name = "header">QUANTITY</f:facet>
+     <h4 id="#{'q'.concat((AccountController.cart.indexOf(cart) + 1).toString())}">#{cart[1]}</h4>
+   </h:column>
+   
+   <h:column>
+      <f:facet name = "header">PRICE</f:facet>
+      <h4>₹#{AccountController.pricearr[cart[0]-1]}</h4>
+   </h:column>
+    
+   <h:column>
+   	 <f:facet name = "header">remove</f:facet>
+   	 <button onclick="remove(this)" style="cursor: pointer; cursor: hand;" id="#{'b'.concat((AccountController.cart.indexOf(cart) + 1).toString())}"><span class="fontawesome-trash"></span></button>
+      <h:form>
+      	<p style="display:none">
+      	<h:commandLink action="#{AccountController.remove()}" ></h:commandLink>
+      	</p>
+      </h:form>
+   </h:column>
+</h:dataTable>
+
+</div>
+<div align="center">
+
+	
+	<h6>Total = ₹#{AccountController.carttotal}</h6>
+	<h6>Tax = ₹#{AccountController.carttax}</h6>
+	<h6>Discount = ₹#{AccountController.cartdis}</h6>
+	<h6>Grand Total = ₹#{AccountController.cartgrandtotal}</h6>
+<h:form>	
+		<h:inputText value="#{AccountController.currcouponcode}" a:placeholder="COUPON CODE" styleClass="code"/> 
+		<h:commandButton action = "#{AccountController.applycode()}" value = "APPLY"></h:commandButton>
+	</h:form>
+	<h:messages style="color:red;margin:8px;" /> 
+	<h:form>
+	<h:commandButton value = "Checkout" style="background-color: #f44336;border: none;color: white;padding: 10px 25px;text-align:center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;" action="address?faces-redirect=true" ></h:commandButton>
+</h:form>
+ <p>(ONLY CASH ON DELIVERY AVAILABLE!! Payement gateway needs to be integrated :( ....)</p>
+</div>
+
+
+
+
+
+
+
+
+	
+<div class="clearfix"></div>
+
+<div id="snackbar"></div>
+
+ <div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top w3-card-4">
+       <header class="w3-container w3-teal">
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h2 id="here"></h2>
+        
+        
+		</header>
+      <div class="w3-container">
+      <h3>Please select quantity to remove : </h3>
+      <h:form>
+        <h:inputHidden id="here1" value="#{AccountController.removequan}" />
+        <h:inputHidden id="here2" value="#{AccountController.removeid}" />
+        <h:inputHidden id="status" value="#{AccountController.errorcode}" />
+        <select id="drop"></select> 
+        <h:commandButton value = "OK" action = "#{AccountController.remove()}" onclick="updatequan()" style="float:right;background-color:#4CAF50;"></h:commandButton>
+      	
+      </h:form>
+     
+      </div>
+     
+        
+     
+    </div>
+  </div>
+
+
+
+</h:body>
+
+</html>

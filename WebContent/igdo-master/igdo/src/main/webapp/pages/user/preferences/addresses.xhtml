@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:hftl="http://hftl.org"
+	xmlns:hf="http://xmlns.jcp.org/jsf/composite/tags"
+	xmlns:igdo="www.igdo.lt/igdo"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/templates/main.xhtml">
+    
+    	<ui:define name="css">
+			<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/main.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/layout.css" />
+			<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/form.css" />
+        </ui:define>
+		
+		<ui:define name="header">
+		    <ui:include src="/WEB-INF/templates/header.xhtml">
+		    	<ui:param name="tab" value="tab:preferences" />
+		    </ui:include>
+		</ui:define>
+
+        <ui:define name="content">
+            
+			<igdo:searchBar />
+
+			<igdo:formHeader>
+			    <div class="left_item">
+			    	#{messages['preferences.addresses.header']}
+				</div>
+			</igdo:formHeader>
+			<h:form id="igdoform" rendered="#{identity.loggedIn}">
+				<div class="row">
+					<h:button value="${messages['preferences.addresses.newAddress']}" styleClass="single" action="/pages/user/preferences/newAddress.xhtml" />
+				</div>
+				<div class="row">
+					<label for="igdoform:addressesList"> 
+                		<h:outputText value="${messages['preferences.addresses.chooseAddress']}" /> 
+                	</label> 
+					<h:selectOneMenu id="addressesList" value="#{addressAction.selectedAddress}" converter="#{userAddressConverter}" required="true" onchange="submit();">
+					  	<f:selectItems value="#{addressAction.userAddresses}" var="a" itemLabel="#{a.name}">
+							#{a.city} #{a.street} #{a.addressNumber}
+						</f:selectItems>
+					</h:selectOneMenu>
+				</div>
+				<div class="break" />
+	            <div class="row">
+					#{addressAction.selectedAddress.name}
+					<div class="break" />
+					#{addressAction.selectedAddress.city}
+					<div class="break" />
+					#{addressAction.selectedAddress.street} #{addressAction.selectedAddress.addressNumber}
+				</div>
+				<div class="buttons">
+                	<h:commandButton value="${messages['preferences.addresses.change']}" styleClass="single" action="#{addressAction.addNewAddress}" />
+					<h:commandButton value="${messages['preferences.addresses.returnShopping']}" styleClass="single" action="/pages/index.xhtml" />
+                </div>
+			</h:form>
+
+        </ui:define>
+</ui:composition>

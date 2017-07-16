@@ -1,0 +1,105 @@
+@CHARSET "UTF-8";
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+body {margin: 0;}
+
+.code{
+	align: center;
+	text-align:center
+}
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+
+ul.topnav li a.active {background-color: #4CAF50;}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+table.cart {
+    width: 70%;
+    border-collapse: collapse; /* so we can control cellspacing in a practical way */
+    border-bottom: 1px solid #000;
+    margin-left:auto; 
+    margin-right:auto;
+}
+ 
+table.cart th,
+table.cart td {
+    padding: 5px;
+    text-align: center;
+    font-family: Arial, Verdana, sans-serif;
+    border: 1px solid #000; /* let's apply borders */
+    border-bottom:0;
+}
+ 
+ 
+table.cart th {
+    background-color: #ddd;
+    color: #BB0000;
+    border-bottom: 2px solid #000;
+}
+ 
+table.cart tr.odd {
+    background-color: #dbe0e0;
+}
+ 
+table.cart tr.odd td {
+    border-top: 1px solid #ccc;
+}
+ 
+table.cart tr.even {
+    background-color: #FBFBFB;
+}
+ 
+table.cart tr.even td {
+    border-top: 1px solid #BBEEEE;
+}
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+
+
+.mymenu option {
+    color: red;
+}

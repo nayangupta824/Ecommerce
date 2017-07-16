@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:hftl="http://hftl.org"
+	xmlns:hf="http://xmlns.jcp.org/jsf/composite/tags"
+	xmlns:igdo="www.igdo.lt/igdo"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/templates/main.xhtml">
+    
+    	<ui:define name="css">
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/layout.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/main.css" />
+        </ui:define>
+		
+		<ui:define name="header">
+		    <ui:include src="/WEB-INF/templates/header.xhtml">
+		    	<ui:param name="tab" value="tab:preferences" />
+		    </ui:include>
+		</ui:define>
+
+        <ui:define name="content">
+            
+			<igdo:searchBar />
+            
+			<ui:repeat value="#{orderAction.getDeliveredOrders()}" var="order" id="orders">
+				"${messages['order.date']}" #{order.orderedOn}
+				<div class="break"></div>
+				"${messages['order.number']}" #{order.id}
+				<div class="break"></div>
+				"${messages['order.totalPrice']}" #{order.orderPrice} 
+			</ui:repeat>
+
+        </ui:define>
+</ui:composition>

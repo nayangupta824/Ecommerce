@@ -1,0 +1,179 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:hftl="http://hftl.org"
+	xmlns:hf="http://xmlns.jcp.org/jsf/composite/tags"
+	xmlns:igdo="www.igdo.lt/igdo"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/templates/main.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="itemId" value="#{itemAction.itemId}" />
+			<f:viewAction action="#{itemAction.init}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="css">
+		<link rel="stylesheet" type="text/css"
+			href="#{facesContext.externalContext.requestContextPath}/css/layout.css" />
+		<link rel="stylesheet" type="text/css"
+			href="#{facesContext.externalContext.requestContextPath}/css/main.css" />
+		<link rel="stylesheet" type="text/css"
+			href="#{facesContext.externalContext.requestContextPath}/css/details.css" />
+	</ui:define>
+
+	<ui:define name="js">
+		<script type="text/javascript"
+			src="#{facesContext.externalContext.requestContextPath}/js/events.js"></script>
+		<script type="text/javascript"
+			src="#{facesContext.externalContext.requestContextPath}/js/rounded-corners.js"></script>
+		<!-- JQuery -->
+		<script type="text/javascript"
+			src="#{facesContext.externalContext.requestContextPath}/js/jquery.js"></script>
+
+		<script type="text/javascript"
+			src="#{facesContext.externalContext.requestContextPath}/js/jquery.cycle.lite.js"></script>
+
+		<script language="JavaScript">
+			$(document).ready(function() {
+
+			});
+		</script>
+
+	</ui:define>
+
+	<ui:define name="header">
+		<ui:include src="/WEB-INF/templates/header.xhtml">
+			<ui:param name="tab" value="tab:main" />
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="content">
+
+		<igdo:searchBar />
+
+		<h:form id="details_form">
+			<div id="details">
+
+				<igdo:tabs>
+					<ui:include src="/pages/item/subtabs.xhtml">
+						<ui:param name="tab" value="details_form:details" />
+						<ui:param name="itemId" value="#{itemAction.itemId}" />
+					</ui:include>
+				</igdo:tabs>
+
+				<div class="break"></div>
+
+				<igdo:border>
+
+					<div class="photos">
+						<h:graphicImage id="main_image"
+							value="#{messages['images.server.url']}/image?item=#{itemAction.item.getImageSource()}&amp;id=1" />
+						<div id="thumbs">
+							<h:graphicImage id="thumb_1" styleClass="small"
+								onclick="set_main_image(this.id)"
+								value="#{messages['images.server.url']}/image?item=#{itemAction.item.getImageSource()}&amp;id=1" />
+							<h:graphicImage id="thumb_2" styleClass="small"
+								onclick="set_main_image(this.id)"
+								value="#{messages['images.server.url']}/image?item=#{itemAction.item.getImageSource()}&amp;id=2" />
+							<h:graphicImage id="thumb_3" styleClass="small"
+								onclick="set_main_image(this.id)"
+								value="#{messages['images.server.url']}/image?item=#{itemAction.item.getImageSource()}&amp;id=3" />
+							<h:graphicImage id="thumb_4" styleClass="small"
+								onclick="set_main_image(this.id)"
+								value="#{messages['images.server.url']}/image?item=#{itemAction.item.getImageSource()}&amp;id=4" />
+						</div>
+						<script language="JavaScript">
+							function set_main_image(selectedId) {
+								mainImg = document
+										.getElementById("details_form:main_image");
+								selectedImg = document
+										.getElementById(selectedId);
+								mainImg.src = selectedImg.src;
+							}
+						</script>
+					</div>
+
+					<div class="text">
+						<div class="title">#{itemAction.item.name}</div>
+						<div class="price">
+							#{messages['search.item.price']} <span>#{itemAction.item.price}</span>
+						</div>
+						<h:commandLink styleClass="cart"
+							action="#{cartBean.addCartItem(itemAction.item)}" value="">
+							<img src="../../img/add_cart_yellow.png" />
+							<span>#{messages['addToCart']}</span>
+						</h:commandLink>
+
+						<igdo:valueMetter />
+
+						<div class="description">#{messages['details.description']}</div>
+						#{itemAction.item.fullDescription}
+					</div>
+					<div class="break"></div>
+
+					<h:outputText>#{itemAction.currentLoggedInUser.userName}</h:outputText>
+					<br />
+
+					<h:outputLabel for="details_form:caption"
+						value="${messages['comment.caption']}" />
+					<h:inputText value="#{itemAction.comment.caption}" id="caption">
+					</h:inputText>
+					<br />
+
+					<h:outputLabel for="details_form:comment"
+						value="${messages['comment.comment']}" />
+					<h:inputTextarea value="#{itemAction.comment.comment}"
+						id="comment">
+					</h:inputTextarea>
+					<br />
+
+					<h:outputLabel for="details_form:rating"
+						value="${messages['comment.rating']}" />
+					<h:inputText value="#{itemAction.comment.rating}" id="rating">
+					</h:inputText>
+					<br />
+
+					<h:commandButton value="${messages['comment.addComment']}"
+						action="#{itemAction.addComment()}" />
+
+					<div class="comments">#{messages['details.comments']}</div>
+					<ui:repeat value="#{itemAction.comments}" var="comment">
+
+						<igdo:innerBorder>
+							<div class="title">
+								#{comment.item.name} <span><igdo:date
+										date="#{comment.commentedOn}" /></span>
+							</div>
+							<div class="author">#{comment.user.userName}</div>
+
+							<igdo:valueMetter />
+
+							<div class="caption">#{comment.caption}</div>
+							<div class="text">#{comment.comment}</div>
+							<div class="wasValuable">
+								<h:outputText value="${messages['details.comment.wasValuable']}" />
+								<h:commandButton value="#{messages['yes']}"
+									action="#{itemAction.wasCommentValuable(true)}" />
+								<h:commandButton value="#{messages['no']}"
+									action="#{itemAction.wasCommentValuable(false)}" />
+							</div>
+						</igdo:innerBorder>
+						<div class="break"></div>
+					</ui:repeat>
+
+					<h:link value="#{messages['details.comments']}" outcome="/pages/item/comments.xhtml">
+						<f:param name="itemId" value="#{itemAction.itemId}" />
+						<f:param name="page" value="1" />
+					</h:link>
+
+				</igdo:border>
+
+				<div class="break"></div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

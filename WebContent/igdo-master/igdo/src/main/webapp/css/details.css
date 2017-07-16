@@ -1,0 +1,149 @@
+div#submenu {
+  line-height:31px;
+  background:url(../img/submenu_middle.png) 0px 0px repeat-x;
+  margin: 5px 14px 0 14px;
+}
+div#submenu div.left {
+  background:url(../img/submenu_left.png) top left no-repeat;
+}
+div#submenu div.right {
+  background:url(../img/submenu_right.png) top right no-repeat;
+  padding:0 12px;
+}
+div#submenu a {  
+  padding:9px 9px;
+  font-size:11px;
+  color:white;
+  text-decoration:none;
+  text-align:center;
+  font-weight:bold;
+}
+div#submenu a:hover, div#submenu a.selected {
+  background-image:url(../img/submenu_selected.png);
+}
+div#product {
+  border:solid #ffd954; border-width: 1px 0; /* rounded border  */
+  text-align:justify;
+}
+div#product div.border_inner {
+  border:solid #ffd954; border-width: 0 1px; /* rounded border  */
+}
+div#product_container {
+  margin:7px 14px;
+}
+div#product div.photos {
+  width:252px;
+ /* height:315px;*/
+  float:left;
+  margin-left:14px;
+  margin-bottom:12px;
+  margin-top:9px;
+  display:inline;
+}
+div#product div.photos img {
+  width:236px;
+  height:236px;
+  border:1px solid #d0d4d4;
+}
+div#product div.photos img.small {
+  width:48px;
+  height:48px;
+  display:block;
+  float:left;
+  margin-top:12px;
+  margin-right:12px;
+}
+div#product div.text {
+  padding:7px 14px 14px 14px;
+}
+div#product div.text div.title {
+  font-weight:bold;
+}
+div#product div.text div.price {
+  font-weight:bold;
+  margin:12px 0 6px 0;
+}
+div#product div.text a.cart {
+  text-decoration:none;
+}
+div#product div.text a.cart img {
+  vertical-align:middle;
+  margin-right:5px;
+}
+div#product div.text a.cart span {
+  text-decoration:underline;
+}
+div#product div.metter {
+  margin:10px 0 12px 0;
+  font-size:2px;
+  line-height:10px;
+}
+div#product div.metter span.number {
+  font-size:10px;
+}
+div#product div.metter div.outer {
+  background:url(../img/metter_blue.png);
+  float:left;
+  height:10px;
+  font-size:2px;
+  margin-right: 9px;
+}
+* html div#product div.metter div.outer {
+  margin-left: 3px;
+}
+* html div#product div.rounded div.metter div.outer {
+  margin-left: 0px;
+}
+div#product div.metter div.inner {
+  height:10px;
+  font-size:2px;
+  background:url(../img/metter_yellow.png);
+}
+div#product div.description {
+  font-weight:bold;
+  margin-bottom:12px;
+}
+div#product div.comments {
+  padding-left:14px;
+  font-weight:bold;
+}
+div#product div.rounded {
+  border-color:#d0d4d4;
+  margin-top:14px
+}
+div#product div.rounded div.border_inner{
+  border:solid #d0d4d4; border-width: 0 1px; /* rounded gray border  */
+}
+div#comment_container {
+ margin:0 14px -5px 14px;
+}
+div#product div.rounded div.title {
+  font-weight:bold;
+  padding:8px 12px;
+}
+div#product div.rounded div.title span {
+  font-weight:normal;
+  font-size:10px;
+}
+div#product div.rounded div.author {
+  font-weight:bold;
+  margin:0 12px;
+}
+div#product div.rounded div.caption {
+  font-weight:bold;
+  font-style:italic;
+  margin:0 12px;
+}
+div#product div.rounded div.metter {
+  margin:9px 7px 1px 13px;
+}
+div#product div.rounded div.text {
+  padding-bottom:5px;
+  clear:both;
+}
+.Wrap {
+    width:65px;
+    height: 65px;
+    float: left;
+}
+  

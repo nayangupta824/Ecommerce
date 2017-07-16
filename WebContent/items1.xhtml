@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+<head>
+	<link rel="stylesheet" type="text/css" href="resources/css/item1.css"/>
+	<script type="text/javascript"
+  	src="resources/js/items.js">
+</script>
+  <title><ui:insert name="title">MyECommerce - Welcome</ui:insert></title>
+  <f:metadata>
+  	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.loadgallery()}" type="preRenderView"></f:event>
+  </f:metadata>
+<script>
+
+</script>
+</head>
+<body onload = "welcome('#{AccountController.account.username}')">
+<ul class="topnav">
+  <li><a class="active" href="#home">Home</a></li>
+  <li><a href="#news">News</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li class="right" id="username"><a href="#about">#{AccountController.account.username}</a></li>
+  <li class="right"><h:form><h:commandLink action="#{AccountController.logout()}" value = "Logout" onclick = "logout('#{AccountController.account.username}')"/></h:form></li>
+  <li class = "right"><a href="#about"><span class="fontawesome-shopping-cart"></span>0</a></li>
+  
+</ul>
+<br/>
+
+
+<ui:repeat var="items" value="#{AccountController.items}" varStatus="status">
+	<div class="responsive">
+  		<div class="gallery">
+    		<a target="_blank" href="https://www.lamnia.com/images/sg-150-Shirts_and_T-Shirts.jpg">
+      			<img src="https://www.lamnia.com/images/sg-150-Shirts_and_T-Shirts.jpg" width="300" height="200"/>
+   			</a>
+    		<div class="desc">#{AccountController.items[status.index][1]}</div>
+   			<div>
+   			<br/>
+    		<h:form>
+	    		<h:commandLink action="#{AccountController.addtocart()}" styleClass="button">
+	    			<span class="fontawesome-shopping-cart"></span> Add to cart
+				</h:commandLink>
+			
+	    		<h:selectOneMenu value="#{AccountController.quantity}" style = "float:right" styleClass="selected">
+			   		<f:selectItem itemValue="0" itemLabel="0" />
+			   		<f:selectItem itemValue="1" itemLabel="1" />
+			   		<f:selectItem itemValue="2" itemLabel="2" />
+			   		<f:selectItem itemValue="3" itemLabel="3" /> 
+				</h:selectOneMenu>
+			</h:form>
+			<br/>
+    		</div>
+         </div>
+	</div>
+	
+</ui:repeat>
+<div class="clearfix"></div>
+
+<div id="snackbar"></div>
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE pages PUBLIC
+	"-//JBoss/Seam Pages Configuration DTD 2.0//EN"
+	"http://jboss.com/products/seam/pages-2.0.dtd">
+<pages no-conversation-view-id="/pages/index.xhtml"
+	login-view-id="/pages/user/login.xhtml">
+	
+	<!-- For all pages -->
+	<page view-id="*">
+		<navigation from-action="#{identity.logout}">
+			<redirect view-id="/pages/index.xhtml" />
+		</navigation>
+	</page>
+	
+	<!-- For user related pages -->
+	<page view-id="/pages/user/register.xhtml">
+		<begin-conversation join="true" pageflow="userRegistration" />
+	</page>
+
+	<page view-id="/pages/user/login.xhtml" scheme="http">
+	<!-- TODO: Change to HTTPS -->
+		<navigation>
+			<rule if="#{identity.loggedIn}">
+				<redirect view-id="/pages/index.xhtml" />
+			</rule>
+		</navigation>
+	</page>
+
+	<page view-id="/pages/user/registrationconfirm.xhtml">
+		<action execute="#{confirm.confirmRegistration}"/>
+		<navigation>
+			<rule if="#{confirm.confirmationSuccessful}">
+				<redirect view-id="/pages/user/login.xhtml" />
+			</rule>
+		</navigation>
+	</page>
+	
+	<page view-id="/pages/search/search.xhtml">
+		<param name="categoryId"/>
+		<param name="searchPattern" value="#{searchingAction.searchPattern}" />
+	</page>
+	
+	<!-- These pages keeps state of current selected item. -->
+	
+	<page view-id="/pages/index.xhtml">
+		<param name="categoryId"/>
+	</page>
+
+	<page view-id="/pages/item/details.xhtml">
+		<param name="itemId"/>
+		<param name="categoryId"/>
+	</page>
+
+	<page view-id="/pages/item/comments.xhtml">
+		<param name="itemId"/>
+		<param name="categoryId"/>
+	</page>
+	
+	<!-- These pages keeps state of current selected category. -->
+	
+	<page view-id="/pages/content/reviews.xhtml">
+		<param name="categoryId"/>
+	</page>
+	
+	<page view-id="/pages/content/shops.xhtml">
+		<param name="categoryId"/>
+	</page>
+	
+	<page view-id="/pages/content/discussions.xhtml">
+		<param name="categoryId"/>
+	</page>
+	
+	<page view-id="/pages/content/help.xhtml">
+		<param name="categoryId"/>
+	</page>
+	
+	<page view-id="/pages/cart/cart.xhtml">
+		<param name="categoryId"/>
+	</page>
+	
+	<page view-id="/pages/user/preferences.xhtml" login-required="true">
+		<param name="categoryId"/>
+	</page>
+
+	<!-- Exception handling. -->
+	
+	<exception class="javax.faces.application.ViewExpiredException">
+		<redirect view-id="/pages/error/expired.xhtml" />
+	</exception>
+
+	<exception class="org.jboss.seam.security.NotLoggedInException">
+		<redirect view-id="/pages/user/login.xhtml">
+			<message>
+				#{user.login.authenticate.for.operation}
+			</message>
+		</redirect>
+	</exception>
+
+	<exception class="org.jboss.seam.security.AuthorizationException">
+		<end-conversation />
+		<redirect view-id="/pages/error/authorizationerror.xhtml">
+			<message>
+				#{user.login.not.authorized.for.operation}
+			</message>
+		</redirect>
+	</exception>
+
+</pages>

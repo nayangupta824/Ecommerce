@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:hftl="http://hftl.org"
+	xmlns:hf="http://xmlns.jcp.org/jsf/composite/tags"
+	xmlns:igdo="www.igdo.lt/igdo"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/templates/main.xhtml">
+	
+        <ui:define name="css">
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/layout.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/main.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/form.css" />
+        </ui:define>
+        <ui:define name="js">
+            <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/events.js"></script>
+            <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/rounded_corners_lite.inc.js"></script>
+        </ui:define>
+        <ui:define name="content">
+            
+			<igdo:searchBar />
+			
+			<igdo:formHeader>
+				<div class="right_item">
+			    	#{messages['header.user.registered']}&#160;
+			    	<h:link outcome="/pages/user/login.xhtml" value="${messages['header.user.login']}" />
+				</div>
+			    <div class="left_item">
+			    	#{messages['user.registration.title']}
+				</div>
+			</igdo:formHeader>
+
+             <h:form id="igdoform" >
+
+                <div class="row">
+                	<label for="register:firstName">
+                    	<h:outputText value="${messages['user.registration.firstName']}" />
+                    </label>
+                    <h:inputText value="#{registerAction.getUser().firstName}" id="firstName">
+                    </h:inputText>
+                </div>
+                <div class="row">
+                	<label for="register:lastName">
+                    	<h:outputText value="${messages['user.registration.lastName']}" />
+                    </label>
+                    <h:inputText value="#{registerAction.getUser().lastName}" id="lastName">
+                    </h:inputText>
+                </div>
+                <div class="row">
+                	<label for="register:email">
+                		<h:outputText value="${messages['user.registration.email']}" />
+                		<img alt="#{messages['form.required.field']}" src="#{facesContext.externalContext.requestContextPath}/img/star.png" />
+                	</label>
+                    <h:inputText value="#{registerAction.getUser().email}" id="email">
+                    </h:inputText>
+                </div>
+                <div class="row">
+                	<label for="register:password">
+                		<h:outputText value="${messages['user.registration.password']}" />
+                		<img alt="#{messages['form.required.field']}" src="#{facesContext.externalContext.requestContextPath}/img/star.png" />
+                	</label>
+                	<h:inputSecret value="#{registerAction.password}" id="password" />
+                </div>
+                <div class="row">
+                	<label for="register:verifyPassword">
+                		<h:outputText value="${messages['user.registration.verifyPassword']}" />
+                		<img alt="#{messages['form.required.field']}" src="#{facesContext.externalContext.requestContextPath}/img/star.png" />
+                	</label>
+                	<h:inputSecret value="#{registerAction.passwordVerification}" id="verifyPassword" />
+                </div>
+                <div class="row">
+	                <h:graphicImage value="/seam/resource/captcha"/>
+					<h:inputText id="verifyCaptcha" value="#{captcha.response}" required="true">
+					</h:inputText>
+					<h:message for="verifyCaptcha"/>
+				</div>
+                <div class="buttons">
+					<igdo:buttonDecorator>
+                		<h:commandButton styleClass="btn" type="submit" value="#{messages['user.registration.register']}" action="next" />
+					</igdo:buttonDecorator>
+					<igdo:buttonDecorator>
+						<h:commandButton styleClass="btn" type="submit" value="#{messages['user.registration.clear']}" action="reset" /> 
+                	</igdo:buttonDecorator>
+				</div>
+            </h:form>
+        </ui:define>
+
+</ui:composition>

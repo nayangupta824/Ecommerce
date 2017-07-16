@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+<link rel="stylesheet" type="text/css" href="resources/css/cart.css"/>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+	<link href="https://fonts.googleapis.com/css?family=Merriweather+Sans" rel="stylesheet"/>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	<script type="text/javascript" src="resources/js/items.js"/>
+  <title><ui:insert name="title">MyECommerce - Cart</ui:insert></title>
+  <f:metadata>
+  	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.populateState()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.verifycartisnotempty()}" type="preRenderView"></f:event>
+  </f:metadata>
+
+
+</h:head>
+<h:body>
+
+<ul class="topnav">
+  <li><a class="active" href="#">Address</a></li>
+  <li class="right" id="username"><a href="#about">#{AccountController.account.username}</a></li>
+  <li class="right"><h:form><h:commandLink action="#{AccountController.logout()}" value = "Logout" onclick = "logout('#{AccountController.account.username}')"/></h:form></li>
+  <li class = "right"><h:form><h:commandLink action="items?faces-redirect=true" value = "Shop More" onclick="shop()"/></h:form></li>
+  
+</ul>
+<br/>
+
+<div align="center">
+<h2 style="font-family: 'Merriweather Sans', sans-serif;color:#d61721"><u>Please provide the Delivery Address :</u> </h2>
+<h:form>
+	<h5 style="display:inline;font-family: 'Merriweather Sans', sans-serif;">State : </h5>	
+	<h:selectOneMenu value="#{AccountController.selectedState}" required="true" requiredMessage="Please select a State" styleClass="mymenu" style="width:100px;">
+    <f:ajax listener="#{AccountController.changeState()}" render="city" />
+  	<f:selectItem itemValue= "select"></f:selectItem>
+    <f:selectItems value="#{AccountController.states}" />
+   
+</h:selectOneMenu>
+<br/>
+ <h5 style="display:inline;font-family: 'Merriweather Sans', sans-serif;">City : </h5>
+<h:selectOneMenu id="city" value="#{AccountController.selectedCity}" required="true" requiredMessage="Please select a city" styleClass="mymenu" style="width:100px;">
+	<f:selectItem itemValue= "select"></f:selectItem>
+    <f:selectItems value="#{AccountController.cities}" />
+</h:selectOneMenu>
+<br/><br/>
+	    <h5 style="display:inline;font-family: 'Merriweather Sans', sans-serif;">Street Address : </h5>
+	    <br/>
+		<h:inputTextarea value="#{AccountController.checkoutaddress}" cols="50" rows="2" style="width:300px"/>
+		<h:messages style="color:red;margin:8px;" />
+		<br/><br/>
+		<h:inputHidden id="status" value="#{AccountController.errorcode}" />
+		<h:commandButton value="CHECKOUT" action = "#{AccountController.checkout()}" style="background-color: #f44336;border: none;color: white;padding: 10px 25px;text-align:center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;"></h:commandButton>
+	</h:form>
+</div>
+<div align="center">
+	
+	<h6>Please pay ₹#{AccountController.cartgrandtotal} through COD!</h6>
+</div>
+
+
+
+
+
+
+
+
+	
+<div class="clearfix"></div>
+
+<div id="snackbar"></div>
+
+
+
+
+</h:body>
+
+</html>

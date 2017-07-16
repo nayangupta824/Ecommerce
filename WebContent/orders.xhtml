@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+<link rel="stylesheet" type="text/css" href="resources/css/cart.css"/>
+
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+	
+	<script type="text/javascript" src="resources/js/items.js"/>
+  <title><ui:insert name="title">MyECommerce - Orders</ui:insert></title>
+  <f:metadata>
+  	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.loadgallery()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.loadorders()}" type="preRenderView"></f:event>
+  	<f:event listener="#{AccountController.verifyordersisnotempty()}" type="preRenderView"></f:event>
+  </f:metadata>
+<script type = "text/javascript" >
+  //for back button not to work
+   function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+ 
+</script>
+
+</head>
+<h:body>
+
+<ul class="topnav">
+  <li><a class="active" href="#">Orders</a></li>
+  <li class="right" id="username"><a href="#about">#{AccountController.account.username}</a></li>
+  <li class="right"><h:form><h:commandLink action="#{AccountController.logout()}" value = "Logout" onclick = "logout('#{AccountController.account.username}')"/></h:form></li>
+  <li class = "right"><h:form><h:commandLink action="items?faces-redirect=true" value = "Shop More" onclick="shop()"/></h:form></li>
+  
+</ul>
+<br/>
+
+<div style="align:center;">
+
+<h:dataTable value = "#{AccountController.orders}" var = "orders" styleClass="cart" cellspacing="0" cellpadding="0" border="0" rowClasses="odd,even" columnClasses="image,name,quantity,status">
+   
+   <h:column>    				
+      <f:facet name = "header">PHOTO</f:facet>    				
+      <img src = "#{AccountController.imgarr[orders[0]-1]}" style = "width:100px; height:100px;"></img>
+      <p id="#{'i'.concat((AccountController.orders.indexOf(orders) + 1).toString())}" style = " visibility: hidden;" >#{orders[0]}</p>
+   </h:column>
+   
+   <h:column>
+      <f:facet name = "header">PRODUCT</f:facet>
+     <h4 id="#{'c'.concat((AccountController.orders.indexOf(orders) + 1).toString())}">#{AccountController.itemnamearr[orders[0]-1]}</h4>
+   </h:column>
+   
+   <h:column>
+      <f:facet name = "header">QUANTITY</f:facet>
+     <h4 id="#{'q'.concat((AccountController.orders.indexOf(orders) + 1).toString())}">#{orders[1]}</h4>
+   </h:column>
+   
+   <h:column>
+      <f:facet name = "header">STATUS</f:facet>
+     <h4 id="#{'q'.concat((AccountController.orders.indexOf(orders) + 1).toString())}">#{AccountController.orderstatus}</h4>
+   </h:column>
+    
+   
+</h:dataTable>
+
+</div>
+<div align="center">
+
+	
+	<h4 style="color:red">Total = ₹#{AccountController.ordertotal}</h4>
+	
+
+ 
+</div>
+
+
+
+
+
+
+
+
+	
+<div class="clearfix"></div>
+
+<div id="snackbar"></div>
+
+ <div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top w3-card-4">
+       <header class="w3-container w3-teal">
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h2 id="here"></h2>
+        
+        
+		</header>
+      <div class="w3-container">
+      <h3>Please select quantity to remove : </h3>
+      <h:form>
+        <h:inputHidden id="here1" value="#{AccountController.removequan}" />
+        <h:inputHidden id="here2" value="#{AccountController.removeid}" />
+        <h:inputHidden id="status" value="#{AccountController.errorcode}" />
+        <select id="drop"></select> 
+        <h:commandButton value = "OK" action = "#{AccountController.remove()}" onclick="updatequan()" style="float:right;background-color:#4CAF50;"></h:commandButton>
+      	
+      </h:form>
+     
+      </div>
+     
+        
+     
+    </div>
+  </div>
+
+
+
+</h:body>
+
+</html>

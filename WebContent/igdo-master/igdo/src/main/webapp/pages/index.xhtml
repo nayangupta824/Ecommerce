@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:hftl="http://hftl.org"
+	xmlns:hf="http://xmlns.jcp.org/jsf/composite/tags"
+	xmlns:igdo="www.igdo.lt/igdo"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/templates/main.xhtml">
+	
+		<ui:define name="metadata">
+			<f:metadata>
+				<f:viewParam name="categoryId" value="#{shoppingBean.categoryId}" />
+				<f:viewParam name="attributeId" value="#{shoppingBean.attributeId}" />
+			</f:metadata>
+		</ui:define>
+	
+        <ui:define name="css">
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/layout.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/main.css" />
+        </ui:define>
+        
+        <ui:define name="js">
+            <script type="text/javascript"
+				src="#{facesContext.externalContext.requestContextPath}/js/events.js"></script>
+			<script type="text/javascript"
+				src="#{facesContext.externalContext.requestContextPath}/js/main.js"></script>
+		</ui:define>
+		
+		<ui:define name="header">
+		    <ui:include src="/WEB-INF/templates/header.xhtml">
+		    	<ui:param name="tab" value="tab:main" />
+		    </ui:include>
+		</ui:define>
+
+        <ui:define name="content">
+        
+            <igdo:searchBar />
+            <h:form>
+                <div id="products">
+                <ui:repeat value="#{shoppingBean.firstPageItems}" var="item">
+                    <div class="main_box">
+                    <table class="details">
+                        <tr class="left">
+                            <td>
+                            	<igdo:itemDetailLink itemId="#{item.id}" value="${messages['details']}" />
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="top">
+                    	<div class="left">
+                    	</div>
+                    </div>
+                    <div class="content">
+                    	<div class="title">
+                    		<a href="#">#{item.name}</a>
+                    	</div>
+                    	<div class="price">
+                    		<a href="#"><img class="product" alt="#{item.name}" src="#{messages['images.server.url']}/image?item=#{item.imageSource}&amp;id=1" /></a>
+                    		<div class="number">
+                    			#{item.price} #{messages['currency']}
+                    		</div>
+                   	 		<h:commandLink styleClass="cart" action="#{cartBean.addCartItem(item)}" value="">
+                        		<img src="../img/add_cart_yellow.png" />
+                        		<span>#{messages['addToCart']}</span>
+                    		</h:commandLink>
+                    	</div>
+                    	<div class="break">
+                    		#{item.shortDescription}
+                    	</div>
+                    </div>
+                    <div class="bottom">
+                    	<div class="right">
+                    	<div class="left">
+                    	</div>
+                    </div>
+                    </div>
+                    </div>
+                </ui:repeat>
+                <div class="cleaner"></div>
+                </div>
+            </h:form>
+        </ui:define>
+</ui:composition>

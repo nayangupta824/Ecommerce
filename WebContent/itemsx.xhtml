@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+	<link rel="stylesheet" type="text/css" href="resources/css/items.css"/>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+	<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet"/>
+	<link href="https://fonts.googleapis.com/css?family=Days+One" rel="stylesheet"/>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	
+	
+
+  <title><ui:insert name="title">MyECommerce - Welcome</ui:insert></title>
+  <f:metadata>
+  	<f:event listener="#{AccountController.verifyLoginOnWelcome()}" type="preRenderView"></f:event>
+  	
+  </f:metadata>
+
+
+</head>
+<h:body onload = "setTimeout(function(){ window.location.replace(window.location.href.substring(0,window.location.href.length-12)+'items.xhtml'); }, 1000);">
+<center>
+<br/><br/>
+<img src = "https://www.artattackk.com/images/img-developmentbox1.gif" style="width:300px;height:300px"></img>
+<br/>
+<img src = "https://cdn.dribbble.com/users/359314/screenshots/2379673/untitled-3.gif" style="width:100px;height:100px"></img>
+</center>
+
+</h:body>
+
+</html>

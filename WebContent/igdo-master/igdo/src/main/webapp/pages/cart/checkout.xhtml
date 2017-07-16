@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:hftl="http://hftl.org"
+	xmlns:hf="http://xmlns.jcp.org/jsf/composite/tags"
+	xmlns:igdo="www.igdo.lt/igdo"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/templates/main.xhtml">
+    
+    	<ui:define name="css">
+             <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/layout.css" />
+             <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/main.css" />
+             <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/form.css" />
+        </ui:define>
+        
+        <ui:define name="js">
+            <script type="text/javascript"
+				src="#{facesContext.externalContext.requestContextPath}/js/events.js"></script>
+		</ui:define>
+    
+		<ui:define name="header">
+		    <ui:include src="/WEB-INF/templates/header.xhtml">
+		    	<ui:param name="tab" value="tab:cart" />
+		    </ui:include>
+		</ui:define>
+
+        <ui:define name="content">
+			<igdo:formHeader>
+			    <div class="left_item">
+			    	#{messages['checkout']}
+				</div>
+			</igdo:formHeader>
+            <h:form id="igdoform" rendered="#{identity.loggedIn}">
+				<h:messages />
+				<h:messages />
+                <div class="row">
+                	<label for="igdoform:items"> 
+	                	<h:outputText value="${messages['checkout.items']}" /> 
+                	</label> 
+					<ui:repeat value="#{orderAction.getCartItems()}" var="orderItem" id="items">
+						#{orderItem.item.name} - #{orderItem.quantity} vnt.
+					</ui:repeat>
+                </div>
+				<h:messages />
+                <div class="row">
+                	<label for="igdoform:address"> 
+	                	<h:outputText value="${messages['checkout.shippingAddress']}" /> 
+	                	<igdo:requiredFieldImage />
+                	</label> 
+                	<h:outputText value="#{userBean.user.shippingAddress.city} #{userBean.user.shippingAddress.street} #{userBean.user.shippingAddress.addressNumber}" id="address" />
+					
+                </div>
+				<h:messages />
+                <div class="row">
+                	<label for="igdoform:paymentMethod"> 
+	                	<h:outputText value="${messages['checkout.paymentMethod']}" /> 
+	                	<igdo:requiredFieldImage />
+                	</label> 
+                	<h:selectOneRadio>
+                		<f:selectItem itemLabel="Visa" />
+`						<f:selectItem itemLabel="Mastercard" />
+						<f:selectItem itemLabel="Paypal" />
+                	</h:selectOneRadio>
+                </div>
+				<h:messages />
+                <div class="row">
+                	<label for="igdoform:totalPrice"> 
+	                	<h:outputText value="${messages['checkout.totalPrice']}" /> 
+                	</label> 
+                	<h:outputText value="#{orderAction.orderTotalPrice}" id="email" />
+                </div>
+				<div class="buttons">
+                	<h:commandButton image="/img/checkout_bt.png" styleClass="totalPrice" action="#{orderAction.order()}" /> 
+                </div>
+		   	</h:form>
+		   	<ui:fragment rendered="#{not identity.loggedIn}">
+		   		Please login
+		   	</ui:fragment>
+        </ui:define>
+        
+        <ui:define name="navigation">
+        </ui:define>
+        
+        <ui:define name="adv">
+        </ui:define>
+        
+</ui:composition>

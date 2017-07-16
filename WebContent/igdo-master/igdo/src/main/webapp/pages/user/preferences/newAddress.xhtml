@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:hftl="http://hftl.org"
+	xmlns:hf="http://xmlns.jcp.org/jsf/composite/tags"
+	xmlns:igdo="www.igdo.lt/igdo"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/templates/main.xhtml">
+    
+    	<ui:define name="css">
+			<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/main.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/layout.css" />
+			<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/form.css" />
+        </ui:define>
+		
+		<ui:define name="header">
+		    <ui:include src="/WEB-INF/templates/header.xhtml">
+		    	<ui:param name="tab" value="tab:preferences" />
+		    </ui:include>
+		</ui:define>
+
+        <ui:define name="content">
+            
+			<igdo:searchBar />
+            
+			<igdo:formHeader>
+			    <div class="left_item">
+			    	#{messages['preferences.newAddress.header']}
+				</div>
+			</igdo:formHeader>
+			<h:form id="igdoform" rendered="#{identity.loggedIn}">
+				<div class="row">
+					<label for="igdoform:name"> 
+                		<h:outputText value="${messages['preferences.newAddress.name']}" /> 
+                		<igdo:requiredFieldImage />
+					</label>
+					<h:inputText value="#{addressAction.address.name}" id="name" required="true" />
+				</div>
+	            <div class="row">
+					<label for="igdoform:country">
+                		<h:outputText value="${messages['preferences.newAddress.country']}" />
+						<igdo:requiredFieldImage />
+                	</label>
+					<h:inputText value="#{addressAction.address.country}" id="country" required="true" />
+				</div>
+				<div class="row">
+					<label for="igdoform:city">
+                		<h:outputText value="${messages['preferences.newAddress.city']}" />
+						<igdo:requiredFieldImage />
+                	</label>
+					<h:inputText value="#{addressAction.address.city}" id="city" required="true" />
+				</div>
+				<div class="row">
+					<label for="igdoform:street">
+                		<h:outputText value="${messages['preferences.newAddress.street']}" />
+						<igdo:requiredFieldImage />
+                	</label>
+					<h:inputText value="#{addressAction.address.street}" id="street" required="true" />
+				</div>
+				<div class="row">
+					<label for="igdoform:addressNumber"> 
+                		<h:outputText value="${messages['preferences.newAddress.addressNumber']}" />
+						<igdo:requiredFieldImage />
+                	</label>
+					<h:inputText value="#{addressAction.address.addressNumber}" id="addressNumber" required="true" />
+				</div>
+				<div class="buttons">
+                	<h:commandButton value="${messages['preferences.newAddress.add']}" styleClass="single" action="#{addressAction.addNewAddress}" />
+                </div>
+			</h:form>
+
+        </ui:define>
+</ui:composition>

@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:hftl="http://hftl.org"
+	xmlns:hf="http://xmlns.jcp.org/jsf/composite/tags"
+	xmlns:igdo="www.igdo.lt/igdo"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/WEB-INF/templates/main.xhtml">
+	
+		<ui:define name="css">
+			<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/layout.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/main.css" />
+            <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/login.css" />
+		</ui:define>
+		<ui:define name="js">
+			<script type="text/javascript"
+				src="#{facesContext.externalContext.requestContextPath}/js/events.js"></script>
+			<script type="text/javascript"
+				src="#{facesContext.externalContext.requestContextPath}/js/rounded_corners_lite.inc.js"></script>
+		</ui:define>
+		<ui:define name="content">
+			
+			<igdo:searchBar />
+
+			<div>
+				<h:messages globalOnly="true" />
+			</div>
+
+			<ui:fragment rendered="#{not confirmAction.confirmationSuccessful}">
+				<h2><h:link value="${messages['index.main']}" outcome="/pages/index.xhtml" />
+				</h2>
+			</ui:fragment>
+		</ui:define>
+
+</ui:composition>

@@ -1,0 +1,94 @@
+div#cartmenu, div#checkout {
+  line-height:55px;
+  background:url(../img/submenu_middle.png) center center repeat-x;
+  margin: -7px 14px 0 14px;
+}
+div#cartmenu div.left {
+  background:url(../img/final_cart.png) center left no-repeat;
+  color:white;
+  font-weight:bold;
+  padding-left:50px;
+  padding-right:-8px;
+}
+div#cartmenu div.right, div#checkout div.right{
+  background:url(../img/submenu_right.png) center right no-repeat;
+  padding:0 12px;
+}
+div#cartmenu div.right div.col3, div#checkout div.right div.col3{
+  width:72px;
+}
+div#cartmenu div.right_item, div#checkout div.right_item {
+  float:right;
+  width:80px;
+  font-size:11px;
+  color:white;
+  font-weight:bold;
+}
+div.cart_items {
+   margin:0 14px;
+}
+div#checkout {
+  color:white;
+  line-height:55px;
+  background:url(../img/submenu_middle.png) center center repeat-x;
+  margin: -23px 14px 0 14px;
+}
+div#checkout div.left {
+  background:url(../img/checkout_left.png) center left no-repeat;
+  color:white;
+  font-weight:bold;
+  padding-left:50px;
+}
+div#checkout div.right {
+  background:url(../img/submenu_right.png) center right no-repeat;
+  padding:0 12px;
+}
+div#checkout div.right_item {
+  float:right;
+  width:80px;
+  font-size:11px;
+  color:white;
+  font-weight:bold;
+}
+div#final_cart div.rounded {
+  border-color:#ffcf29;
+  margin:0 0 12px 0;
+  line-height:20px;
+}
+div#final_cart div.rounded div.border_inner {
+  border:solid #ffcf29; border-width: 0 1px; /* rounded border  */
+}
+div#final_cart .break {
+  height:8px;
+  font-size:5px;
+}
+div#final_cart .brcheck {
+  height:18px;
+}
+div#final_cart div.rounded div.title {
+  font-weight:bold;
+  margin-left:10px;
+}
+div#final_cart div.rounded div.date {
+  margin-left:10px;
+}
+  
+div#final_cart div.rounded div.right_item {
+  float:right;
+  text-align:left;
+  width:80px;
+  padding-top:8px;
+  font-size:11px;
+}
+div#final_cart div.rounded div.right_item input {
+  width:40px;
+  border:1px solid #d4d8d8;
+}
+div#final_cart div.rounded div.price a {
+  font-weight:bold;
+  color:#e67d00;
+  text-decoration:underline;
+}
+div#final_cart div.rounded div.checkout_button input {
+	margin:6px 0 2px 10px;
+}
