@@ -33,7 +33,7 @@ After successfull order the user receives an email of successfull order and a me
 - Change the variable 'pass' to the user password
 - Then change the user in the respective databse connections (if it is "root" no change needed).
 - Then change the email and password from where the email will be sent to the user in workspace/MyEcommerce/src/controller/AccountController
-```
+```yo
 * 'import' the project into your workspace and right click on project name and run it on the server.
 
 ## Built With
