@@ -11,7 +11,7 @@ After successfull login a user can view the items in the gallery with following 
 * Orders (with status tracking)
 * User profile needs to be worked on
 
-After successfull order the user receives an email of successfull order and a message on mobile. (the api credits for texlocal have been exhausted. Get a new Key for messaging service to work again)
+After successfull order the user receives an email of successfull order and a message on mobile. (the api credits for texlocal have been exhausted. Get a new Key for messaging service to work again)yo
 
 ## Prerequisites
 ```
