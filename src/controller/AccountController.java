@@ -885,16 +885,6 @@ public class AccountController {
 		System.out.println(map);
 		System.out.println(map);
 	}
-	public void addtocart()
-	{
-		System.out.println("yo");
-		
-	}
-	
-	public void mail()
-	{
-		
-	}
 	
 	public void updatecart()
 	{
