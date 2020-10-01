@@ -46,7 +46,7 @@
 	</developers>
 
 	<properties>
-		<spring.version>4.0.5.RELEASE</spring.version>
+		<spring.version>5.2.9.RELEASE</spring.version>
 		<spring.security.version>3.2.4.RELEASE</spring.security.version>
 		<hibernate.version>3.6.10.Final</hibernate.version>
 		<jsf.version>2.2.7</jsf.version>
