@@ -21,7 +21,7 @@ After successfull order the user receives an email of successfull order and a me
     - Edit it
     - Uncomment <Manager pathname="" /> tag in the XML to disable session persistence across Tomcat restarts
 3) MySql Database
-    - Import the MySql dump provided.
+    - Import the MySql dump provided
 ```
 
 ## Installing
