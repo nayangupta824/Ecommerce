@@ -15,7 +15,7 @@ After successfull order the user receives an email of successfull order and a me
 
 ## Prerequisites
 ```
-1) Java EE IDE.
+1) Java EE IDE
 2) Apache Tomcat Server
     - Goto Apache/conf/context.xml
     - Edit it
